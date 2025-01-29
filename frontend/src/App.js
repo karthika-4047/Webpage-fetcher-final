@@ -22,11 +22,28 @@ const App = () => {
     console.log('Current allDetails:', allDetails);
   }, [data, allDetails]);
 
-  const extractTagName = (classString) => {
-    const classParts = classString.split(' ');
-    return classParts[classParts.length - 5]; // Extract the last part of the class string
-  };
+  // const extractTagName = (classString) => {
+  //   const classParts = classString.split(' ');
+  //   return classParts[classParts.length - 5]; // Extract the last part of the class string
+  // };
 
+  // const extractTagName = (classString) => {
+  //   if (!classString || typeof classString !== 'string') return null;
+  
+  //   const classParts = classString.trim().split(/\s+/); // Split by one or more spaces
+  //   return classParts.length > 0 ? classParts[classParts.length - 1] : null; // Get last class
+  // };
+
+
+  const extractTagName = (classString) => {
+    if (!classString || typeof classString !== 'string') return ""; // Return blank if invalid
+  
+    const classParts = classString.trim().split(/\s+/); // Split by one or more spaces
+    const lastClass = classParts.length > 0 ? classParts[classParts.length - 1] : ""; // Get last class
+  
+    // Check if the last class is an h-tag (h1 to h6)
+    return /^h[1-6]$/.test(lastClass) ? lastClass : ""; // Return heading tag or blank
+  };
 
   const fetchData = async () => {
     setLoading(true);
